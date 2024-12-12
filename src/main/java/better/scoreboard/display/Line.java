@@ -1,6 +1,6 @@
-package better.scoreboard.board;
+package better.scoreboard.display;
 
-import better.scoreboard.util.MessageUtil;
+import better.scoreboard.MessageUtil;
 import org.bukkit.entity.Player;
 
 import javax.annotation.Nullable;
@@ -41,6 +41,6 @@ public class Line {
     public @Nullable String getText(Player player) {
         String text = this.text;
         for (String placeholder : placeholders) text = text.replaceAll(placeholder, MessageUtil.setPlaceholder(player, placeholder));
-        return text;
+        return MessageUtil.translateColors(text);
     }
 }

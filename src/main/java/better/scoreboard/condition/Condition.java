@@ -1,7 +1,7 @@
 package better.scoreboard.condition;
 
 import better.scoreboard.BetterScoreboard;
-import better.scoreboard.board.Line;
+import better.scoreboard.display.Line;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.Permission;
@@ -72,6 +72,22 @@ public class Condition {
     public String getText(Player player) {
         if (isTrue(player)) return trueLine.getText(player);
         return falseLine.getText(player);
+    }
+
+    public static void load(BetterScoreboard plugin, ConfigurationSection config) {
+        config = config.getConfigurationSection("conditions");
+        if (config != null) {
+            for (String condition : config.getKeys(false)) {
+                ConfigurationSection section = config.getConfigurationSection(condition);
+
+                if (section == null) {
+                    plugin.getLogger().warning("Could not resolve condition named \"" + condition + "\" in config.yml!");
+                    continue;
+                }
+
+                ConditionManager.addCondition(condition.toLowerCase(), new Condition(plugin, section));
+            }
+        }
     }
 
     /**

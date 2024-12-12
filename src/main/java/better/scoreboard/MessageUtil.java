@@ -1,4 +1,4 @@
-package better.scoreboard.util;
+package better.scoreboard;
 
 import better.scoreboard.condition.ConditionManager;
 import me.clip.placeholderapi.PlaceholderAPI;

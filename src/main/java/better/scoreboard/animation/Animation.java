@@ -1,4 +1,4 @@
-package better.scoreboard.board;
+package better.scoreboard.animation;
 
 import better.scoreboard.BetterScoreboard;
 import better.scoreboard.condition.Condition;
@@ -7,26 +7,26 @@ import org.bukkit.entity.Player;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
- * This represents a single line on the scoreboard. It can cycle through multiple lines of text and randomly select
- * a line if set to.
+ * After the addition of boss bars into the plugin, this class was made more generic as to allow different types of
+ * animations to exist. Now, this class serves as a structure for different types of animations to be implemented on
+ * top of.
  *
  * @Author: am noah
  * @Since: 1.0.0
- * @Updated: 1.3.0
+ * @Updated: 1.4.0
  */
-public class Animation {
+public abstract class Animation<E> {
 
-    private final List<Line> animation;
-    private final int animationSpeed;
-    private final boolean random;
-    private final Condition condition;
+    protected final List<E> animation = new ArrayList<>();
+    protected final int animationSpeed;
+    protected final boolean random;
+    protected final Condition condition;
 
-    private int currentIndex, currentTick;
-    private boolean updateTick;
+    protected int currentIndex, currentTick;
+    protected boolean updateTick;
 
     /**
      * Initialize the Animation, reading required data from the configuration.
@@ -37,17 +37,13 @@ public class Animation {
         if (config == null) {
             animationSpeed = -1;
             random = false;
-            animation = Collections.singletonList(new Line(null));
             condition = null;
             return;
         }
 
         random = config.getBoolean("random", false);
         animationSpeed = config.getInt("speed", 1);
-        animation = new ArrayList<>();
-        for (String line : config.getStringList("text")) animation.add(new Line(line));
 
-        if (random) currentIndex = (int) (animation.size() * Math.random());
         if (animationSpeed < 0) updateTick = true;
 
         if (config.get("criteria") != null) condition = new Condition(plugin, config);
@@ -58,13 +54,13 @@ public class Animation {
      * Getters.
      */
 
-    /**
-     * Returns the current string of text that should be displayed by this animation.
-     */
-    public String getText(Player player) {
-        return animation.get(currentIndex).getText(player);
+    public E getAnimation() {
+        return animation.get(currentIndex);
     }
 
+    /**
+     * Return whether this line should display according to
+     */
     public boolean isConditionalTrue(Player player) {
         if (condition == null) return true;
         return condition.isTrue(player);
@@ -78,12 +74,9 @@ public class Animation {
     }
 
     /*
-     * Functions.
+     * Methods.
      */
 
-    /**
-     * Progresses the animation forward by 1 tick.
-     */
     public void tick() {
         // Should not proceed if it's a static board.
         if (animationSpeed < 0) return;

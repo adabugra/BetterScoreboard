@@ -1,28 +1,44 @@
 # BetterScoreboard
 
-This is a scoreboard plugin written for Spigot and all of its forks that supports 1.20.3 and above. This is far from the
-most feature-packed scoreboard plugin, but it's simple and should be functional enough for most servers.
+Originally written only for scoreboards, BetterScoreboard is a display plugin written for Spigot and all of its forks 
+that supports 1.20.3 and above. This plugin currently includes support for both boss bars and scoreboards, offering a 
+simple experience that should be functional enough for most servers.
 
-This project makes heavy use of [PacketEvents](https://github.com/retrooper/packetevents) and 
+This project makes heavy use of [PacketEvents](https://github.com/retrooper/packetevents),
+[sharkbyte-bossbar](https://github.com/amnoah/sharkbyte-bossbar), and
 [sharkbyte-scoreboard](https://github.com/amnoah/sharkbyte-scoreboard).
 
-## Features
+## General Features
 - Unlimited character support on all lines.
 - Fully packet based.
 - Scoreboard updating is run fully async.
-- Non-flicker scoreboard updates.
-- Conditional lines (will show/hide based on criteria).
+- Non-flicker updates.
 - 10 built-in placeholders.
 - Conditional placeholders.
 - PlaceholderAPI support.
+- Per-animation update speed.
+- Option to randomly select animation steps.
+
+## Boss Bar Features
+- Control the color of boss bars.
+- Control the health of boss bars.
+- Control the division of boss bars.
+- Ability to have multiple boss bars.
+- Ability to activate certain boss bars via certain triggers.
+- Per-world boss bars.
+- Permission-based boss bars.
+- Combinations of per-world and permission-based boss bars.
+- Boss bar weight, so only the highest will activate.
+
+## Scoreboard Features
+- Conditional lines (will show/hide based on criteria).
+- Ability align text to the left or right.
 - Ability to have multiple scoreboards.
 - Ability to activate certain scoreboards via certain triggers.
 - Per-world scoreboards.
 - Permission-based scoreboards.
 - Combinations of per-world and permission-based scoreboards.
 - Scoreboard weight, so only the highest will activate.
-- Per-line update speed.
-- Option to randomly select lines.
 - Ability align text to the left or right.
 
 ## Limitations
@@ -35,6 +51,8 @@ For information on conditions in BetterScoreboard, please check the [Conditions 
 For information on how to configure BetterScoreboard, please check the [Config wiki](https://github.com/amnoah/BetterScoreboard/wiki/Config).
 
 For information on how to use placeholders in BetterScoreboard, please check the [Placeholders wiki](https://github.com/amnoah/BetterScoreboard/wiki/Placeholders).
+
+For information on how to create boss bars in BetterScoreboard, please check the [Boss Bars Wiki](https://github.com/amnoah/BetterScoreboard/wiki/Boss-Bar).
 
 For information on how to create scoreboards in BetterScoreboard, please check the [Scoreboards wiki](https://github.com/amnoah/BetterScoreboard/wiki/Scoreboards).
 

@@ -42,6 +42,45 @@ conditions:
       - "%world% -| nether"
       - "%world% -| end"
 
+boss-bars:
+  default:
+    weight: 10
+    trigger: DEFAULT
+
+    text:
+      random: false
+      speed: 300
+      text:
+        - "&1This &9is &1the &9default &1bossbar!"
+        - "&9This &1is &9the &1default &9bossbar!"
+
+    color:
+      random: true
+      speed: 100
+      color:
+        - "pink"
+        - "purple"
+        - "red"
+
+    division:
+      random: false
+      speed: -1
+      division:
+        - 1
+
+    health:
+      random: false
+      speed: 1
+      health:
+        - 1.0
+        - 0.75
+        - 0.5
+        - 0.25
+        - 0
+        - 0.25
+        - 0.5
+        - 0.75
+
 scoreboards:
   default:
     weight: 10

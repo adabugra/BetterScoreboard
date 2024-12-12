@@ -1,6 +1,6 @@
 package better.scoreboard.listener;
 
-import better.scoreboard.boarduser.BoardUserManager;
+import better.scoreboard.displayuser.DisplayUserManager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
@@ -12,22 +12,22 @@ import org.bukkit.event.player.PlayerQuitEvent;
  *
  * @Author: am noah
  * @Since: 1.0.0
- * @Updated: 1.0.0
+ * @Updated: 1.4.0
  */
 public class PlayerUpdateListener implements Listener {
 
     @EventHandler
     public void onChangeWorld(PlayerChangedWorldEvent event) {
-        BoardUserManager.getBoardUser(event.getPlayer()).checkBoards();
+        DisplayUserManager.getDisplayUser(event.getPlayer()).checkDisplays();
     }
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
-        BoardUserManager.addBoardUser(event.getPlayer());
+        DisplayUserManager.addDisplayUser(event.getPlayer());
     }
 
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
-        BoardUserManager.removeBoardUser(event.getPlayer());
+        DisplayUserManager.removeDisplayUser(event.getPlayer());
     }
 }

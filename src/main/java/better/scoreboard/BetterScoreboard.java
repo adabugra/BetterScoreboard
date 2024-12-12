@@ -1,19 +1,19 @@
 package better.scoreboard;
 
-import better.scoreboard.board.Board;
-import better.scoreboard.board.BoardManager;
-import better.scoreboard.boarduser.BoardUser;
-import better.scoreboard.boarduser.BoardUserManager;
 import better.scoreboard.condition.Condition;
 import better.scoreboard.condition.ConditionManager;
+import better.scoreboard.display.Display;
+import better.scoreboard.display.DisplayManager;
+import better.scoreboard.display.impl.BarDisplay;
+import better.scoreboard.display.impl.BoardDisplay;
+import better.scoreboard.displayuser.DisplayUser;
+import better.scoreboard.displayuser.DisplayUserManager;
 import better.scoreboard.listener.PlayerUpdateListener;
 import better.scoreboard.listener.ReloadListener;
-import better.scoreboard.util.MessageUtil;
 import com.github.retrooper.packetevents.PacketEvents;
 import com.github.retrooper.packetevents.manager.server.ServerVersion;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
@@ -23,7 +23,7 @@ import org.bukkit.scheduler.BukkitTask;
  *
  * @Author: am noah
  * @Since: 1.0.0
- * @Updated: 1.3.0
+ * @Updated: 1.4.0
  */
 public class BetterScoreboard extends JavaPlugin {
 
@@ -60,9 +60,9 @@ public class BetterScoreboard extends JavaPlugin {
 
         MessageUtil.setUsePAPI(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null);
         reload();
-        task = getServer().getScheduler().runTaskTimerAsynchronously(this, () -> { // async for timings
-            for (Board board : BoardManager.getBoards()) board.tick();
-            for (BoardUser user : BoardUserManager.getBoardUsers()) user.tick();
+        task = getServer().getScheduler().runTaskTimerAsynchronously(this, () -> {
+            for (Display display : DisplayManager.getDisplays()) display.tick();
+            for (DisplayUser user : DisplayUserManager.getDisplayUsers()) user.tick();
         }, 0, 1);
     }
 
@@ -81,46 +81,19 @@ public class BetterScoreboard extends JavaPlugin {
         saveDefaultConfig();
         reloadConfig();
 
-        // Nuke Conditions.
-        ConditionManager.clear();
-
-        // Nuke all boards in the system.
-        for (BoardUser user : BoardUserManager.getBoardUsers()) user.switchBoard(null);
-        BoardManager.clear();
-
         MessageUtil.setDateFormat(getConfig().getString("settings.date-format"));
 
-        // Rebuild the conditions.
-        ConfigurationSection conditions = getConfig().getConfigurationSection("conditions");
-        if (conditions != null) {
-            for (String condition : conditions.getKeys(false)) {
-                ConfigurationSection section = conditions.getConfigurationSection(condition);
+        // Nuke and rebuild Conditions.
+        ConditionManager.clear();
+        Condition.load(this, getConfig());
 
-                if (section == null) {
-                    getLogger().warning("Could not resolve condition named \"" + condition + "\" in config.yml!");
-                    continue;
-                }
+        // Nuke and rebuild Displays.
+        for (DisplayUser user : DisplayUserManager.getDisplayUsers()) user.clearDisplays();
+        DisplayManager.clear();
+        BarDisplay.load(this, getConfig());
+        BoardDisplay.load(this, getConfig());
 
-                ConditionManager.addCondition(condition.toLowerCase(), new Condition(this, section));
-            }
-        }
-
-        // Rebuild the scoreboards.
-        ConfigurationSection scoreboards = getConfig().getConfigurationSection("scoreboards");
-        if (scoreboards != null) {
-            for (String scoreboard : scoreboards.getKeys(false)) {
-                ConfigurationSection section = scoreboards.getConfigurationSection(scoreboard);
-
-                if (section == null) {
-                    getLogger().warning("Could not resolve scoreboard named \"" + scoreboard + "\" in config.yml!");
-                    continue;
-                }
-
-                BoardManager.addBoard(new Board(this, section));
-            }
-        }
-
-        // Register users back to boards.
-        for (BoardUser user : BoardUserManager.getBoardUsers()) user.checkBoards();
+        // Register users back to displays.
+        for (DisplayUser user : DisplayUserManager.getDisplayUsers()) user.checkDisplays();
     }
 }
