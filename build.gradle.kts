@@ -1,5 +1,7 @@
 plugins {
     java
+    `maven-publish`
+    id("fabric-loom") version "1.9-SNAPSHOT" apply false
 }
 
 fun prop(prop: String) = rootProject.property(prop) as String
