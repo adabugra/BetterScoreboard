@@ -55,8 +55,8 @@ boss-bars:
         - "&9This &1is &9the &1default &9bossbar!"
 
     color:
-      random: true
-      speed: 100
+      random: false
+      speed: 80
       color:
         - "pink"
         - "purple"
@@ -70,16 +70,16 @@ boss-bars:
 
     health:
       random: false
-      speed: 20
+      speed: 10
       health:
+        - 0.0
+        - 0.25
+        - 0.5
+        - 0.75
         - 1.0
         - 0.75
         - 0.5
         - 0.25
-        - 0
-        - 0.25
-        - 0.5
-        - 0.75
 
 scoreboards:
   default:

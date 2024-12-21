@@ -23,8 +23,6 @@ public class BoardProcessor extends Processor<BoardDisplay> {
      */
     @Override
     public void switchDisplay(@Nullable BoardDisplay display) {
-        System.out.println("Switching board!");
-
         if (display == null) {
             if (super.display == null) return;
             super.display = null;

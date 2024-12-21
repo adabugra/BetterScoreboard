@@ -19,15 +19,13 @@ import com.github.retrooper.packetevents.manager.server.ServerVersion;
 
 public class BetterScoreboard {
 
-    private final ConfigSection rootConfig;
     private final PlaceholderProcessor placeholders;
     private final PluginLogger logger;
     private final UserData data;
 
     private boolean enabled;
 
-    public BetterScoreboard(ConfigSection rootConfig, PlaceholderProcessor placeholders, PluginLogger logger, UserData data) {
-        this.rootConfig = rootConfig;
+    public BetterScoreboard(PlaceholderProcessor placeholders, PluginLogger logger, UserData data) {
         this.placeholders = placeholders;
         this.logger = logger;
         this.data = data;
@@ -96,7 +94,7 @@ public class BetterScoreboard {
         enabled = false;
     }
 
-    public void load() {
+    public void load(ConfigSection rootConfig) {
         if (!enabled) return;
 
         logger.logInfo("Beginning load!");
@@ -140,9 +138,5 @@ public class BetterScoreboard {
 
     public PlaceholderProcessor getPlaceholders() {
         return placeholders;
-    }
-
-    public ConfigSection getRootConfig() {
-        return rootConfig;
     }
 }

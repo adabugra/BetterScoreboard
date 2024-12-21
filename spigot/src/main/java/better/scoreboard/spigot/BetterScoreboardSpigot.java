@@ -32,7 +32,6 @@ public class BetterScoreboardSpigot extends JavaPlugin {
     @Override
     public void onLoad() {
         core = new BetterScoreboard(
-                new SpigotConfigSection(getConfig()),
                 new SpigotPlaceholderProcessor(this),
                 new SpigotPluginLogger(this),
                 new SpigotUserData()
@@ -89,7 +88,7 @@ public class BetterScoreboardSpigot extends JavaPlugin {
     public void load() {
         saveDefaultConfig();
         reloadConfig();
-        core.load();
+        core.load(new SpigotConfigSection(getConfig()));
     }
 
     public boolean isPAPIInstalled() {
