@@ -39,11 +39,13 @@ public class Line {
      */
     public @Nullable String getText(User user) {
         String text = this.text;
-        for (String placeholder : placeholders) text = text.replaceAll(placeholder, PlaceholderManager.setPlaceholder(plugin, user, text));
+        for (String placeholder : placeholders) text = text.replaceAll(placeholder, PlaceholderManager.setPlaceholder(plugin, user, placeholder));
         return translateColors(text);
     }
 
     private static String translateColors(String text) {
+        if (text == null) return null;
+
         Matcher matcher = TRANSLATE.matcher(text);
         StringBuffer output = new StringBuffer();
 

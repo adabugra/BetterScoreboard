@@ -28,12 +28,15 @@ public class Condition {
         this.plugin = plugin;
         this.name = config.getName();
 
+        System.out.println("Condition name: " + config.getName());
+
         for (String string : config.getList(String.class, "criteria")) criteria.add(new Criteria(plugin, string));
-        if (config.getObject(String.class, "mode").equalsIgnoreCase("or")) this.mode = Mode.OR;
+
+        if (config.getObject(String.class, "mode", "and").equalsIgnoreCase("or")) this.mode = Mode.OR;
         else this.mode = Mode.AND;
 
-        falseLine = new Line(plugin, config.getObject(String.class, "false"));
-        trueLine = new Line(plugin, config.getObject(String.class, "true"));
+        falseLine = new Line(plugin, config.getObject(String.class, "false", null));
+        trueLine = new Line(plugin, config.getObject(String.class, "true", null));
     }
 
     /**

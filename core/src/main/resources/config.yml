@@ -70,7 +70,7 @@ boss-bars:
 
     health:
       random: false
-      speed: 1
+      speed: 20
       health:
         - 1.0
         - 0.75

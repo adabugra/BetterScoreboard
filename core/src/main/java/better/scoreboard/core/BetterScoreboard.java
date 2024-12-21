@@ -12,7 +12,7 @@ import better.scoreboard.core.display.impl.BarDisplay;
 import better.scoreboard.core.display.impl.BoardDisplay;
 import better.scoreboard.core.displayuser.DisplayUser;
 import better.scoreboard.core.displayuser.DisplayUserManager;
-import better.scoreboard.core.listener.JoinLeaveListener;
+import better.scoreboard.core.listener.LeaveListener;
 import better.scoreboard.core.placeholder.PlaceholderManager;
 import com.github.retrooper.packetevents.PacketEvents;
 import com.github.retrooper.packetevents.manager.server.ServerVersion;
@@ -24,13 +24,14 @@ public class BetterScoreboard {
     private final PluginLogger logger;
     private final UserData data;
 
-    private boolean enabled = true;
+    private boolean enabled;
 
     public BetterScoreboard(ConfigSection rootConfig, PlaceholderProcessor placeholders, PluginLogger logger, UserData data) {
         this.rootConfig = rootConfig;
         this.placeholders = placeholders;
         this.logger = logger;
         this.data = data;
+        this.enabled = true;
 
         /*
          * We only support 1.20.3+.
@@ -88,7 +89,7 @@ public class BetterScoreboard {
 
     public void enable() {
         if (!enabled) return;
-        PacketEvents.getAPI().getEventManager().registerListener(new JoinLeaveListener());
+        PacketEvents.getAPI().getEventManager().registerListener(new LeaveListener());
     }
 
     public void disable() {
@@ -98,20 +99,27 @@ public class BetterScoreboard {
     public void load() {
         if (!enabled) return;
 
-        PlaceholderManager.setDateFormatter(rootConfig.getConfigSection("settings").getObject(String.class, "date-format"));
+        logger.logInfo("Beginning load!");
+
+        PlaceholderManager.setDateFormatter(rootConfig.getConfigSection("settings").getObject(String.class, "date-format", ""));
 
         // Nuke and rebuild Conditions.
+        logger.logInfo("Rebuilding Conditions from config...");
         ConditionManager.clear();
         Condition.load(this, rootConfig);
 
         // Nuke and rebuild Displays.
+        logger.logInfo("Rebuilding Displays from config...");
         for (DisplayUser user : DisplayUserManager.getDisplayUsers()) user.clearDisplays();
         DisplayManager.clear();
         BarDisplay.load(this, rootConfig);
         BoardDisplay.load(this, rootConfig);
 
         // Register users back to displays.
+        logger.logInfo("Rebuilding DisplayUsers...");
         for (DisplayUser user : DisplayUserManager.getDisplayUsers()) user.checkDisplays();
+
+        logger.logInfo("Load finished!");
     }
 
     public void tick() {

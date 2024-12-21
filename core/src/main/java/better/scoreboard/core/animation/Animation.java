@@ -32,12 +32,12 @@ public class Animation<E> {
             return;
         }
 
-        random = config.getObject(Boolean.class, "random");
-        animationSpeed = config.getObject(Integer.class, "speed");
+        random = config.getObject(Boolean.class, "random", false);
+        animationSpeed = config.getObject(Integer.class, "speed", 1);
 
         if (animationSpeed < 0) updateTick = true;
 
-        if (config.getConfigSection("criteria") != null) condition = new Condition(plugin, config);
+        if (config.hasNode("criteria")) condition = new Condition(plugin, config);
         else condition = null;
     }
 

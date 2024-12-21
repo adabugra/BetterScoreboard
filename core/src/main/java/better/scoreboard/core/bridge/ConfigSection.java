@@ -15,7 +15,9 @@ public interface ConfigSection {
 
     String getName();
 
-    <E> E getObject(Class<E> classType, String node);
+    <E> E getObject(Class<E> classType, String node, E defaultValue);
 
     ConfigSection getParent();
+
+    boolean hasNode(String node);
 }

@@ -14,8 +14,8 @@ public abstract class Display {
      * Initialize the Display object.
      */
     public Display(ConfigSection config) {
-        weight = config.getObject(Integer.class, "weight");
-        trigger = TriggerManager.retrieveTrigger(config.getObject(String.class, "trigger"));
+        weight = config.getObject(Integer.class, "weight", 1);
+        trigger = TriggerManager.retrieveTrigger(config.getObject(String.class, "trigger", ""));
         trigger.load(config);
     }
 

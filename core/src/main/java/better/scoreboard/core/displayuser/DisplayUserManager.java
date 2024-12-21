@@ -1,10 +1,12 @@
 package better.scoreboard.core.displayuser;
 
+import com.github.retrooper.packetevents.PacketEvents;
 import com.github.retrooper.packetevents.protocol.player.User;
 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class DisplayUserManager {
 
@@ -35,7 +37,8 @@ public class DisplayUserManager {
     /**
      * Add a DisplayUser associated with the given player object.
      */
-    public static void addDisplayUser(User user) {
+    public static void addDisplayUser(Object player) {
+        User user = PacketEvents.getAPI().getPlayerManager().getUser(player);
         DISPLAY_USER_MAP.put(user, new DisplayUser(user));
     }
 

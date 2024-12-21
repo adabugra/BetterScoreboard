@@ -47,7 +47,7 @@ public class BetterScoreboardSpigot extends JavaPlugin {
         PlaceholderManager.registerPlaceholder("ping", user -> String.valueOf(Bukkit.getPlayer(user.getUUID()).getPing()));
         PlaceholderManager.registerPlaceholder("players", user -> String.valueOf(Bukkit.getOnlinePlayers().size()));
         PlaceholderManager.registerPlaceholder("world", user -> Bukkit.getPlayer(user.getUUID()).getWorld().getName());
-        PlaceholderManager.registerPlaceholder("wordplayers", user -> String.valueOf(Bukkit.getPlayer(user.getUUID()).getWorld().getPlayers().size()));
+        PlaceholderManager.registerPlaceholder("worldplayers", user -> String.valueOf(Bukkit.getPlayer(user.getUUID()).getWorld().getPlayers().size()));
 
         TriggerManager.registerTrigger("permission", new PermissionTrigger());
         TriggerManager.registerTrigger("world_whitelist", new WorldWhitelistTrigger());

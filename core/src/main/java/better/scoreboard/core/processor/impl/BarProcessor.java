@@ -37,7 +37,10 @@ public class BarProcessor extends Processor<BarDisplay> {
         super.display = display;
         sbBossBar.setColor(super.display.getColor().getAnimation());
         sbBossBar.setDivision(super.display.getDivision().getAnimation());
-        sbBossBar.setHealth(super.display.getHealth().getAnimation());
+
+        sbBossBar.setHealth(super.display.getHealth().getAnimation().floatValue());
+
+        //sbBossBar.setHealth((float) super.display.getHealth().getAnimation());
         sbBossBar.setText(super.display.getText().getAnimation().getText(user));
     }
 
@@ -52,8 +55,14 @@ public class BarProcessor extends Processor<BarDisplay> {
             sbBossBar.setColor(display.getColor().getAnimation());
         if (display.getDivision().isUpdateTick())
             sbBossBar.setDivision(display.getDivision().getAnimation());
-        if (display.getHealth().isUpdateTick())
-            sbBossBar.setHealth(display.getHealth().getAnimation());
+        if (display.getHealth().isUpdateTick()) {
+            sbBossBar.setHealth(
+                    display
+                            .getHealth()
+                            .getAnimation()
+                            .floatValue()
+            );
+        }
         if (display.getText().isUpdateTick())
             sbBossBar.setText(display.getText().getAnimation().getText(user));
 

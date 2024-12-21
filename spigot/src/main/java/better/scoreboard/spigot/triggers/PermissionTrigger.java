@@ -25,7 +25,7 @@ public class PermissionTrigger extends Trigger {
      */
     @Override
     public void load(ConfigSection config) {
-        String node = config.getObject(String.class, "permission");
+        String node = config.getObject(String.class, "permission", "");
 
         if (node == null) {
             permission = null;

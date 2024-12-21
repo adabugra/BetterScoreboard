@@ -50,12 +50,18 @@ public class SpigotConfigSection implements ConfigSection {
     }
 
     @Override
-    public <E> E getObject(Class<E> classType, String node) {
-        return section.getObject(node, classType);
+    public <E> E getObject(Class<E> classType, String node, E defaultValue) {
+        E obj = section.getObject(node, classType);
+        return obj == null ? defaultValue : obj;
     }
 
     @Override
     public ConfigSection getParent() {
         return parent;
+    }
+
+    @Override
+    public boolean hasNode(String node) {
+        return section.get(node) != null;
     }
 }

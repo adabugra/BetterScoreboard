@@ -34,7 +34,7 @@ public class PermWorldWhitelistTrigger extends Trigger {
     public void load(ConfigSection config) {
         worlds = config.getList(String.class, "worlds");
 
-        String node = config.getObject(String.class, "permission");
+        String node = config.getObject(String.class, "permission", "");
 
         if (node == null) {
             permission = null;
