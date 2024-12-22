@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "id": "better-scoreboard",
+  "version": "${version}",
+  "name": "BetterScoreboard",
+  "description": "",
+  "authors": ["amnoah"],
+  "entrypoints": {
+    "main": ["better.scoreboard.fabric.BetterScoreboardFabric"]
+  },
+  "depends": {
+    "fabricloader": ">=0.16.7",
+    "minecraft": ">=1.21.1",
+    "java": ">=21"
+  }
+}
