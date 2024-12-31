@@ -19,4 +19,9 @@ public class SpigotUserData implements UserData {
 
         return false;
     }
+
+    @Override
+    public String getWorld(User user) {
+        return Bukkit.getPlayer(user.getUUID()).getWorld().getName();
+    }
 }

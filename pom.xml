@@ -12,6 +12,7 @@
     <modules>
         <module>core</module>
         <module>spigot</module>
+        <module>sponge</module>
     </modules>
 
     <properties>

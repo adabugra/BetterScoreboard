@@ -1,29 +1,33 @@
-package better.scoreboard.spigot.triggers;
+package better.scoreboard.core.trigger.impl;
 
+import better.scoreboard.core.BetterScoreboard;
 import better.scoreboard.core.bridge.ConfigSection;
 import better.scoreboard.core.trigger.Trigger;
 import com.github.retrooper.packetevents.protocol.player.User;
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
-import org.bukkit.permissions.Permission;
-import org.bukkit.permissions.PermissionDefault;
 
 import java.util.List;
 
 public class PermWorldWhitelistTrigger extends Trigger {
 
-    private Permission permission = null;
+    private final BetterScoreboard plugin;
+
+    private String permission = null;
     private List<String> worlds = null;
+
+    public PermWorldWhitelistTrigger(BetterScoreboard plugin) {
+        this.plugin = plugin;
+    }
 
     /**
      * The player can run this trigger if they're in one of the configured worlds and have the permission.
      */
     @Override
     public boolean canRun(User user) {
-        Player player = Bukkit.getPlayer(user.getUUID());
         if (permission == null) return false;
-        if (!player.hasPermission(permission)) return false;
-        for (String world : worlds) if (player.getWorld().getName().equalsIgnoreCase(world)) return true;
+        if (!plugin.getData().hasPermission(user, permission)) return false;
+
+        String userWorld = plugin.getData().getWorld(user);
+        for (String world : worlds) if (userWorld.equalsIgnoreCase(world)) return true;
         return false;
     }
 
@@ -33,14 +37,6 @@ public class PermWorldWhitelistTrigger extends Trigger {
     @Override
     public void load(ConfigSection config) {
         worlds = config.getList(String.class, "worlds");
-
-        String node = config.getObject(String.class, "permission", "");
-
-        if (node == null) {
-            permission = null;
-            return;
-        }
-
-        permission = new Permission(node, PermissionDefault.OP);
+        permission = config.getObject(String.class, "permission", "");
     }
 }

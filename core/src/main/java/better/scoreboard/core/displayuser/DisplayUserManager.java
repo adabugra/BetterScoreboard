@@ -6,7 +6,6 @@ import com.github.retrooper.packetevents.protocol.player.User;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 public class DisplayUserManager {
 

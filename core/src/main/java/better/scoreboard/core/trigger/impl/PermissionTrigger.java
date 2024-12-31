@@ -1,15 +1,19 @@
-package better.scoreboard.spigot.triggers;
+package better.scoreboard.core.trigger.impl;
 
+import better.scoreboard.core.BetterScoreboard;
 import better.scoreboard.core.bridge.ConfigSection;
 import better.scoreboard.core.trigger.Trigger;
 import com.github.retrooper.packetevents.protocol.player.User;
-import org.bukkit.Bukkit;
-import org.bukkit.permissions.Permission;
-import org.bukkit.permissions.PermissionDefault;
 
 public class PermissionTrigger extends Trigger {
 
-    private Permission permission = null;
+    private final BetterScoreboard plugin;
+
+    private String permission = null;
+
+    public PermissionTrigger(BetterScoreboard plugin) {
+        this.plugin = plugin;
+    }
 
     /**
      * The player can run this trigger if they have the associated permission node.
@@ -17,7 +21,7 @@ public class PermissionTrigger extends Trigger {
     @Override
     public boolean canRun(User user) {
         if (permission == null) return false;
-        return Bukkit.getPlayer(user.getUUID()).hasPermission(permission);
+        return plugin.getData().hasPermission(user, permission);
     }
 
     /**
@@ -25,13 +29,6 @@ public class PermissionTrigger extends Trigger {
      */
     @Override
     public void load(ConfigSection config) {
-        String node = config.getObject(String.class, "permission", "");
-
-        if (node == null) {
-            permission = null;
-            return;
-        }
-
-        permission = new Permission(node, PermissionDefault.OP);
+        permission = config.getObject(String.class, "permission", "");
     }
 }

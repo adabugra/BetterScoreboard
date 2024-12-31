@@ -3,13 +3,13 @@ package better.scoreboard.spigot;
 import better.scoreboard.core.BetterScoreboard;
 import better.scoreboard.core.placeholder.PlaceholderManager;
 import better.scoreboard.core.trigger.TriggerManager;
+import better.scoreboard.core.trigger.impl.*;
 import better.scoreboard.spigot.bridge.SpigotConfigSection;
 import better.scoreboard.spigot.bridge.SpigotPlaceholderProcessor;
 import better.scoreboard.spigot.bridge.SpigotPluginLogger;
 import better.scoreboard.spigot.bridge.SpigotUserData;
 import better.scoreboard.spigot.listener.PlayerUpdateListener;
 import better.scoreboard.spigot.listener.ReloadListener;
-import better.scoreboard.spigot.triggers.*;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
@@ -48,11 +48,11 @@ public class BetterScoreboardSpigot extends JavaPlugin {
         PlaceholderManager.registerPlaceholder("world", user -> Bukkit.getPlayer(user.getUUID()).getWorld().getName());
         PlaceholderManager.registerPlaceholder("worldplayers", user -> String.valueOf(Bukkit.getPlayer(user.getUUID()).getWorld().getPlayers().size()));
 
-        TriggerManager.registerTrigger("permission", new PermissionTrigger());
-        TriggerManager.registerTrigger("world_whitelist", new WorldWhitelistTrigger());
-        TriggerManager.registerTrigger("world_blacklist", new WorldBlacklistTrigger());
-        TriggerManager.registerTrigger("world_whitelist_and_permission", new PermWorldWhitelistTrigger());
-        TriggerManager.registerTrigger("world_blacklist_and_permission", new PermWorldBlacklistTrigger());
+        TriggerManager.registerTrigger("permission", new PermissionTrigger(core));
+        TriggerManager.registerTrigger("world_whitelist", new WorldWhitelistTrigger(core));
+        TriggerManager.registerTrigger("world_blacklist", new WorldBlacklistTrigger(core));
+        TriggerManager.registerTrigger("world_whitelist_and_permission", new PermWorldWhitelistTrigger(core));
+        TriggerManager.registerTrigger("world_blacklist_and_permission", new PermWorldBlacklistTrigger(core));
     }
 
     @Override

@@ -1,5 +1,7 @@
 package better.scoreboard.core.trigger;
 
+import better.scoreboard.core.trigger.impl.DefaultTrigger;
+
 import java.util.HashMap;
 import java.util.Map;
 
