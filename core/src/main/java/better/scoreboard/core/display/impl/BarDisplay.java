@@ -20,7 +20,7 @@ public class BarDisplay extends Display {
      * Initialize the BossBar, reading required data from the configuration.
      */
     public BarDisplay(BetterScoreboard plugin, ConfigSection config) {
-        super(config);
+        super(plugin, config);
         color = new ColorAnimation(plugin, config.getConfigSection("color"));
         division = new DivisionAnimation(plugin, config.getConfigSection("division"));
         health = new HealthAnimation(plugin, config.getConfigSection("health"));

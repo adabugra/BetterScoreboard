@@ -18,7 +18,7 @@ public class BoardDisplay extends Display {
      * Initialize the Board, reading required data from the configuration.
      */
     public BoardDisplay(BetterScoreboard plugin, ConfigSection config) {
-        super(config);
+        super(plugin, config);
 
         leftAligned = new ArrayList<>();
         rightAligned = new ArrayList<>();

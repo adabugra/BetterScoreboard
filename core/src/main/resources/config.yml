@@ -44,9 +44,6 @@ conditions:
 
 boss-bars:
   default:
-    weight: 10
-    trigger: DEFAULT
-
     text:
       random: false
       speed: 300
@@ -83,9 +80,6 @@ boss-bars:
 
 scoreboards:
   default:
-    weight: 10
-    trigger: DEFAULT
-
     title:
       random: false
       speed: 100
@@ -131,9 +125,8 @@ scoreboards:
 
   nether:
     weight: 15
-    trigger: WORLD_WHITELIST
-    worlds:
-      - "world_nether"
+    criteria:
+      - "%world% $ nether"
 
     title:
       random: false
@@ -182,8 +175,8 @@ scoreboards:
 
   permission:
     weight: 12
-    trigger: PERMISSION
-    permission: "better.scoreboard.permission"
+    criteria:
+      - "permission:better.scoreboard.permission"
 
     title:
       random: true

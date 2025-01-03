@@ -1,22 +1,22 @@
 package better.scoreboard.core.display;
 
+import better.scoreboard.core.BetterScoreboard;
 import better.scoreboard.core.bridge.ConfigSection;
-import better.scoreboard.core.trigger.Trigger;
-import better.scoreboard.core.trigger.TriggerManager;
+import better.scoreboard.core.condition.Condition;
 import com.github.retrooper.packetevents.protocol.player.User;
 
 public abstract class Display {
 
-    protected final Trigger trigger;
+    protected final Condition condition;
     protected final int weight;
 
     /**
      * Initialize the Display object.
      */
-    public Display(ConfigSection config) {
+    public Display(BetterScoreboard plugin, ConfigSection config) {
         weight = config.getObject(Integer.class, "weight", 1);
-        trigger = TriggerManager.retrieveTrigger(config.getObject(String.class, "trigger", ""));
-        trigger.load(config);
+        if (config.hasNode("criteria")) condition = new Condition(plugin, config);
+        else condition = null;
     }
 
     /*
@@ -34,7 +34,8 @@ public abstract class Display {
      * Return whether the player is allowed to run this scoreboard.
      */
     public boolean canRun(User user) {
-        return trigger.canRun(user);
+        if (condition == null) return true;
+        return condition.isTrue(user);
     }
 
     /*

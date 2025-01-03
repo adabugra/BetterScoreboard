@@ -2,8 +2,6 @@ package better.scoreboard.sponge;
 
 import better.scoreboard.core.BetterScoreboard;
 import better.scoreboard.core.placeholder.PlaceholderManager;
-import better.scoreboard.core.trigger.TriggerManager;
-import better.scoreboard.core.trigger.impl.*;
 import better.scoreboard.sponge.bridge.SpongeConfigSection;
 import better.scoreboard.sponge.bridge.SpongePlaceholderProcessor;
 import better.scoreboard.sponge.bridge.SpongePluginLogger;
@@ -108,12 +106,6 @@ public class BetterScoreboardSponge {
             Optional<ServerPlayer> player = game.server().player(user.getUUID());
             return player.map(serverPlayer -> String.valueOf(serverPlayer.world().players().size())).orElse("");
         });
-
-        TriggerManager.registerTrigger("permission", new PermissionTrigger(core));
-        TriggerManager.registerTrigger("world_whitelist", new WorldWhitelistTrigger(core));
-        TriggerManager.registerTrigger("world_blacklist", new WorldBlacklistTrigger(core));
-        TriggerManager.registerTrigger("world_whitelist_and_permission", new PermWorldWhitelistTrigger(core));
-        TriggerManager.registerTrigger("world_blacklist_and_permission", new PermWorldBlacklistTrigger(core));
     }
 
     @Listener
