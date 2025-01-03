@@ -15,9 +15,9 @@ public class PlayerUpdateListener {
         DisplayUserManager.addDisplayUser(player);
     }
 
+    @Listener
     public void onWorldChange(ChangeEntityWorldEvent event) {
         if (!(event.entity() instanceof ServerPlayer player)) return;
-
         DisplayUserManager.getDisplayUser(PacketEvents.getAPI().getPlayerManager().getUser(player)).checkDisplays();
     }
 }

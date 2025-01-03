@@ -33,8 +33,8 @@ public class Condition {
         if (config.getObject(String.class, "mode", "and").equalsIgnoreCase("or")) this.mode = Mode.OR;
         else this.mode = Mode.AND;
 
-        falseLine = new Line(plugin, config.getObject(String.class, "false", null));
-        trueLine = new Line(plugin, config.getObject(String.class, "true", null));
+        falseLine = new Line(plugin, config.getObject(String.class, "false-result", null));
+        trueLine = new Line(plugin, config.getObject(String.class, "true-result", null));
     }
 
     /**

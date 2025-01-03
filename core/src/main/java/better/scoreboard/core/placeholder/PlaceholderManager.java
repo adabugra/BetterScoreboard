@@ -54,11 +54,17 @@ public class PlaceholderManager {
 
     public static String setPlaceholder(BetterScoreboard plugin, User user, String text) {
         Placeholder placeholder = PLACEHOLDER_MAP.get(text);
-        if (placeholder != null) return placeholder.text(user);
+        String finalText;
 
-        if (text.startsWith("%condition:"))
-            return ConditionManager.getCondition(text.substring(11, text.length() - 1)).getText(user);
+        if (placeholder != null) {
+            finalText = placeholder.text(user);
+        } else if (text.startsWith("%condition:")) {
+            finalText = ConditionManager.getCondition(text.substring(11, text.length() - 1)).getText(user);
+        } else {
+            finalText = plugin.getPlaceholders().setPlaceholders(user, text);
+        }
 
-        return plugin.getPlaceholders().setPlaceholders(user, text);
+        return finalText;
+        //return finalText == null ? "" : finalText;
     }
 }

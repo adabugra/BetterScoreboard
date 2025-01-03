@@ -3,12 +3,9 @@ package better.scoreboard.sponge.bridge;
 import better.scoreboard.core.bridge.ConfigSection;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.configurate.CommentedConfigurationNode;
-import org.spongepowered.configurate.ConfigurationNode;
 import org.spongepowered.configurate.serialize.SerializationException;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 public class SpongeConfigSection implements ConfigSection {
 
@@ -27,8 +24,8 @@ public class SpongeConfigSection implements ConfigSection {
 
     @Override
     public Collection<String> getChildren() {
-        List<String> nodes = new ArrayList<>();
-        for (ConfigurationNode node : section.childrenList()) nodes.add((String) node.key());
+        Set<String> nodes = new HashSet<>();
+        for (Object key : section.childrenMap().keySet()) nodes.add(key.toString());
         return nodes;
     }
 
@@ -49,7 +46,7 @@ public class SpongeConfigSection implements ConfigSection {
 
     @Override
     public String getName() {
-        return (String) section.key();
+        return section.key().toString();
     }
 
     @Override

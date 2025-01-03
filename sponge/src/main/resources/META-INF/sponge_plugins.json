@@ -1,9 +1,9 @@
 {
   "loader": {
     "name": "java_plain",
-    "version": "1.0"
+    "version": "2.5.1-SNAPSHOT"
   },
-  "license": "GPLv3",
+  "license": "GPL-3",
   "plugins": [
     {
       "id": "betterscoreboard",
@@ -11,6 +11,8 @@
       "entrypoint": "better.scoreboard.sponge.BetterScoreboardSponge",
       "description": "A packet based scoreboard and boss bar plugin.",
       "version": "2.0.0",
+      "branding": {},
+      "links": {},
       "contributors": [
         {
           "name": "am noah",
@@ -20,13 +22,15 @@
       "dependencies": [
         {
           "id": "spongeapi",
-          "version": "12.0.0"
+          "version": "12.0.0-SNAPSHOT",
+          "load-order": "after",
+          "optional": false
         },
         {
           "id": "packetevents",
-          "version": "2.7.0",
+          "version": "*",
           "load-order": "after",
-          "optional": "false"
+          "optional": false
         }
       ]
     }

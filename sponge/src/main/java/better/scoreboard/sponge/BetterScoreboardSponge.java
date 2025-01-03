@@ -17,7 +17,6 @@ import org.spongepowered.api.Game;
 import org.spongepowered.api.Server;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.config.ConfigDir;
-import org.spongepowered.api.config.ConfigManager;
 import org.spongepowered.api.entity.living.player.server.ServerPlayer;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.lifecycle.StartedEngineEvent;
@@ -103,7 +102,7 @@ public class BetterScoreboardSponge {
         PlaceholderManager.registerPlaceholder("players", user -> String.valueOf(game.server().onlinePlayers().size()));
         PlaceholderManager.registerPlaceholder("world", user -> {
             Optional<ServerPlayer> player = game.server().player(user.getUUID());
-            return player.map(serverPlayer -> serverPlayer.world().key().asString()).orElse("");
+            return player.map(serverPlayer -> serverPlayer.world().key().value()).orElse("");
         });
         PlaceholderManager.registerPlaceholder("worldplayers", user -> {
             Optional<ServerPlayer> player = game.server().player(user.getUUID());
@@ -148,7 +147,7 @@ public class BetterScoreboardSponge {
             File file = filePath.toFile();
 
             if (!file.exists()) {
-                InputStream inputStream = BetterScoreboard.class.getResourceAsStream("config.yml");
+                InputStream inputStream = BetterScoreboard.class.getResourceAsStream("/config.yml");
                 assert (inputStream != null);
                 Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
             }
@@ -158,7 +157,9 @@ public class BetterScoreboardSponge {
 
             core.load(new SpongeConfigSection(node));
         } catch (IOException e) {
-
+            logger.warn("Could not load BetterScoreboard's configuration.");
+            logger.warn("Please verify the legitimacy of your configuration file as the plugin may not work as intended.");
+            e.printStackTrace();
         }
     }
 }
