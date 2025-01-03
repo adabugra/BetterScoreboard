@@ -10,17 +10,11 @@ public class BarProcessor extends Processor<BarDisplay> {
 
     private final SBBossBar sbBossBar;
 
-    /**
-     * Initialize the BarProcessor object.
-     */
     public BarProcessor(User user) {
         super(BarDisplay.class, user);
         sbBossBar = SBBossBar.createBossBar(user);
     }
 
-    /**
-     * Switch the active Display to the given BarDisplay, also setting initial animation values.
-     */
     @Override
     public void switchDisplay(@Nullable BarDisplay display) {
         if (display == null) {
@@ -41,9 +35,6 @@ public class BarProcessor extends Processor<BarDisplay> {
         sbBossBar.setText(super.display.getText().getAnimation().getText(user));
     }
 
-    /**
-     * Update all the animations of the BarDisplay for the given player.
-     */
     @Override
     public void tick() {
         if (display == null) return;

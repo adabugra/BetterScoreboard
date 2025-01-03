@@ -12,9 +12,6 @@ public class DisplayUser {
 
     private final List<Processor> processors = new ArrayList<>();
 
-    /**
-     * Initialize the DisplayUser object.
-     */
     public DisplayUser(User user) {
         processors.add(new BarProcessor(user));
         processors.add(new BoardProcessor(user));
@@ -25,21 +22,14 @@ public class DisplayUser {
      * Functions.
      */
 
-    /**
-     * Check what boards the user is allowed to run, automatically switching to whichever has the highest weight.
-     */
     public void checkDisplays() {
         for (Processor processor : processors) processor.checkDisplays();
     }
-
 
     public void clearDisplays() {
         for (Processor processor : processors) processor.switchDisplay(null);
     }
 
-    /**
-     * Handle a server tick, updating lines as necessary.
-     */
     public void tick() {
         for (Processor processor : processors) processor.tick();
     }

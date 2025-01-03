@@ -22,10 +22,4 @@ public class SpongeUserData implements UserData {
         for (String p : permission) if (!player.get().hasPermission(p)) return false;
         return true;
     }
-
-    @Override
-    public String getWorld(User user) {
-        Optional<ServerPlayer> player = game.server().player(user.getUUID());
-        return player.map(serverPlayer -> serverPlayer.world().key().asString()).orElse("");
-    }
 }

@@ -19,9 +19,6 @@ public class Animation<E> {
     protected int currentIndex, currentTick;
     protected boolean updateTick;
 
-    /**
-     * Initialize the Animation, reading required data from the configuration.
-     */
     public Animation(BetterScoreboard plugin, @Nullable ConfigSection config) {
         currentIndex = currentTick = 0;
 
@@ -41,32 +38,18 @@ public class Animation<E> {
         else condition = null;
     }
 
-    /*
-     * Getters.
-     */
-
     public E getAnimation() {
         return animation.get(currentIndex);
     }
 
-    /**
-     * Return whether this line should display according to
-     */
     public boolean isConditionalTrue(User user) {
         if (condition == null) return true;
         return condition.isTrue(user);
     }
 
-    /**
-     * Return whether the current tick is an animation update tick.
-     */
     public boolean isUpdateTick() {
         return updateTick;
     }
-
-    /*
-     * Methods.
-     */
 
     public void tick() {
         // Should not proceed if it's a static board.

@@ -41,9 +41,6 @@ public class PlaceholderManager {
         PLACEHOLDER_MAP.put("%" + name + "%", placeholder);
     }
 
-    /**
-     * Find all placeholders in a given piece of text, separating them into a set.
-     */
     public static Set<String> separatePlaceholders(String text) {
         Set<String> separated = new HashSet<>();
         if (text == null) return separated;
@@ -65,6 +62,5 @@ public class PlaceholderManager {
         }
 
         return finalText;
-        //return finalText == null ? "" : finalText;
     }
 }

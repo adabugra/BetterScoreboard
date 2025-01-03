@@ -8,9 +8,6 @@ import org.jetbrains.annotations.Nullable;
 
 public class TextAnimation extends Animation<Line> {
 
-    /**
-     * Initialize the Animation, reading required data from the configuration.
-     */
     public TextAnimation(BetterScoreboard plugin, @Nullable ConfigSection config) {
         super(plugin, config);
 

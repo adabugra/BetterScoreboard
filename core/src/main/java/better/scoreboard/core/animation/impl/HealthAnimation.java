@@ -7,9 +7,6 @@ import org.jetbrains.annotations.Nullable;
 
 public class HealthAnimation extends Animation<Double> {
 
-    /**
-     * Initialize the HealthAnimation, reading required data from the configuration.
-     */
     public HealthAnimation(BetterScoreboard plugin, @Nullable ConfigSection config) {
         super(plugin, config);
 

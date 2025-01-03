@@ -15,17 +15,12 @@ public class Condition {
         OR
     }
 
-    private final BetterScoreboard plugin;
     private final String name;
     private final List<Criteria> criteria = new ArrayList<>();
     private final Line falseLine, trueLine;
     private final Mode mode;
 
-    /**
-     * Initialize the Condition object.
-     */
     public Condition(BetterScoreboard plugin, ConfigSection config) {
-        this.plugin = plugin;
         this.name = config.getName();
 
         for (String string : config.getList(String.class, "criteria")) criteria.add(new Criteria(plugin, string));
@@ -37,9 +32,6 @@ public class Condition {
         trueLine = new Line(plugin, config.getObject(String.class, "true-result", null));
     }
 
-    /**
-     * Return whether the condition
-     */
     public boolean isTrue(User user) {
         if (mode.equals(Mode.AND)) {
             for (Criteria criteria : this.criteria) if (!criteria.canRun(user)) return false;
@@ -50,9 +42,6 @@ public class Condition {
         }
     }
 
-    /**
-     * Return the proper text that this condition will produce.
-     */
     public String getText(User user) {
         return isTrue(user) ? trueLine.getText(user) : falseLine.getText(user);
     }
@@ -73,13 +62,6 @@ public class Condition {
         }
     }
 
-    /**
-     * This represents a specific criteria of a configuration.
-     *
-     * @Author: am noah
-     * @Since: 1.0.0
-     * @Updated: 1.1.0
-     */
     private class Criteria {
 
         private final BetterScoreboard plugin;
@@ -89,9 +71,6 @@ public class Condition {
 
         private boolean sentErrorMessage = false;
 
-        /**
-         * Initialize the Criteria object.
-         */
         public Criteria(BetterScoreboard plugin, String line) {
             this.plugin = plugin;
 
@@ -123,9 +102,6 @@ public class Condition {
             leftText = new Line(plugin, elements[0]);
         }
 
-        /**
-         * Return whether the player passes these criteria.
-         */
         public boolean canRun(User user) {
             if (permission != null) return plugin.getData().hasPermission(user, permission);
             if (conditionCheck == null) return true;

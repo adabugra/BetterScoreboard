@@ -18,9 +18,6 @@ public class Line {
     private final String text;
     private final Set<String> placeholders;
 
-    /**
-     * Initialize the Line object.
-     */
     public Line(BetterScoreboard plugin, @Nullable String text) {
         this.plugin = plugin;
 
@@ -34,9 +31,6 @@ public class Line {
         placeholders = PlaceholderManager.separatePlaceholders(text);
     }
 
-    /**
-     * Return the line's text, replacing all placeholders with what's applicable for the given player.
-     */
     public @Nullable String getText(User user) {
         String text = this.text;
         for (String placeholder : placeholders) text = text.replaceAll(placeholder, PlaceholderManager.setPlaceholder(plugin, user, placeholder));

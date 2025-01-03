@@ -8,9 +8,6 @@ import org.jetbrains.annotations.Nullable;
 
 public class DivisionAnimation  extends Animation<BossBar.Overlay> {
 
-    /**
-     * Initialize the DivisionAnimation, reading required data from the configuration.
-     */
     public DivisionAnimation(BetterScoreboard plugin, @Nullable ConfigSection config) {
         super(plugin, config);
 

@@ -10,17 +10,11 @@ public class BoardProcessor extends Processor<BoardDisplay> {
 
     private final Scoreboard scoreboard;
 
-    /**
-     * Initialize the BoardProcessor object.
-     */
     public BoardProcessor(User user) {
         super(BoardDisplay.class, user);
         scoreboard = new Scoreboard(user, "BetterScoreboard");
     }
 
-    /**
-     * Switch the active Display to the given BoardDisplay, also setting initial animation values.
-     */
     @Override
     public void switchDisplay(@Nullable BoardDisplay display) {
         if (display == null) {
@@ -58,9 +52,6 @@ public class BoardProcessor extends Processor<BoardDisplay> {
         scoreboard.display();
     }
 
-    /**
-     * Update all the animations of the BoardDisplay for the given player.
-     */
     @Override
     public void tick() {
         if (display == null) return;

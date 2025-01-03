@@ -8,9 +8,6 @@ import org.jetbrains.annotations.Nullable;
 
 public class ColorAnimation extends Animation<BossBar.Color> {
 
-    /**
-     * Initialize the ColorAnimation, reading required data from the configuration.
-     */
     public ColorAnimation(BetterScoreboard plugin, @Nullable ConfigSection config) {
         super(plugin, config);
 

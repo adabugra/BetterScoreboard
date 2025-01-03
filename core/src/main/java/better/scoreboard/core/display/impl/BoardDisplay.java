@@ -14,9 +14,6 @@ public class BoardDisplay extends Display {
     private final List<TextAnimation> leftAligned, rightAligned;
     private final TextAnimation title;
 
-    /**
-     * Initialize the Board, reading required data from the configuration.
-     */
     public BoardDisplay(BetterScoreboard plugin, ConfigSection config) {
         super(plugin, config);
 
@@ -33,20 +30,10 @@ public class BoardDisplay extends Display {
         }
     }
 
-    /*
-     * Getters.
-     */
-
-    /**
-     * Return the text that should be displayed at the given index.
-     */
     public TextAnimation getLeftText(int index) {
         return leftAligned.get(index);
     }
 
-    /**
-     * Return the total amount of lines on this board.
-     */
     public int getLineCount() {
         return leftAligned.size();
     }
@@ -55,20 +42,10 @@ public class BoardDisplay extends Display {
         return rightAligned.get(index);
     }
 
-    /**
-     * Return the text that should be displayed as the title.
-     */
     public TextAnimation getTitle() {
         return title;
     }
 
-    /*
-     * Functions.
-     */
-
-    /**
-     * Load all BoardDisplay objects from the config.yml file.
-     */
     public static void load(BetterScoreboard plugin, ConfigSection config) {
         config = config.getConfigSection("scoreboards");
         if (config != null) {
@@ -85,9 +62,6 @@ public class BoardDisplay extends Display {
         }
     }
 
-    /**
-     * Progress this scoreboard 1 tick forward.
-     */
     @Override
     public void tick() {
         title.tick();
