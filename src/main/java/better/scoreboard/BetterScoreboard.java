@@ -12,11 +12,12 @@ import better.scoreboard.listener.PlayerUpdateListener;
 import better.scoreboard.listener.ReloadListener;
 import com.github.retrooper.packetevents.PacketEvents;
 import com.github.retrooper.packetevents.manager.server.ServerVersion;
+import com.tcoded.folialib.FoliaLib;
+import com.tcoded.folialib.wrapper.task.WrappedTask;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitTask;
 
 /**
  * Our main class.
@@ -29,8 +30,9 @@ public class BetterScoreboard extends JavaPlugin {
 
     private static final int B_STATS_ID = 22862;
 
+    private FoliaLib foliaLib;
     private Metrics metrics;
-    private BukkitTask task;
+    private WrappedTask task;
 
     @Override
     public void onEnable() {
@@ -44,6 +46,8 @@ public class BetterScoreboard extends JavaPlugin {
             getLogger().warning("Please update to 1.20.3 or above!");
             return;
         }
+
+        foliaLib = new FoliaLib(this);
 
         // Begin b_stats
         metrics = new Metrics(this, B_STATS_ID);
@@ -60,7 +64,7 @@ public class BetterScoreboard extends JavaPlugin {
 
         MessageUtil.setUsePAPI(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null);
         reload();
-        task = getServer().getScheduler().runTaskTimerAsynchronously(this, () -> {
+        task = foliaLib.getScheduler().runTimerAsync(() -> {
             for (Display display : DisplayManager.getDisplays()) display.tick();
             for (DisplayUser user : DisplayUserManager.getDisplayUsers()) user.tick();
         }, 0, 1);
